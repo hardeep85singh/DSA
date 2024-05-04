@@ -1,13 +1,12 @@
 package com.example.dsalgo.graphs;
 
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.PriorityQueue;
 
 /**
  * @author Hardeep Singh
  */
-public class MinimumSpanningTreePrimsAlgorithm {
+public class MSTPrimsAlgorithm {
     public static void main(String[] args) {
 
     }
@@ -23,17 +22,16 @@ public class MinimumSpanningTreePrimsAlgorithm {
         while (!priorityQueue.isEmpty()){
             Pair curr = priorityQueue.poll();
             int u = curr.vertex;
-            if(visited[u]){
-                continue;
-            }
-            ans = ans + curr.weight;
-            visited[u] = true;
-            ArrayList<ArrayList<Integer>> neighbors = adjList.get(u);
-            for(ArrayList<Integer> neighbor : neighbors){
-                int v = neighbor.get(0);
-                int w = neighbor.get(1);
-                if(!visited[v]){
-                    priorityQueue.add(new Pair(v, w));
+            if(!visited[u]) {
+                ans = ans + curr.weight;
+                visited[u] = true;
+                ArrayList<ArrayList<Integer>> neighbors = adjList.get(u);
+                for (ArrayList<Integer> neighbor : neighbors) {
+                    int v = neighbor.get(0);
+                    int w = neighbor.get(1);
+                    if (!visited[v]) {
+                        priorityQueue.add(new Pair(v, w));
+                    }
                 }
             }
         }

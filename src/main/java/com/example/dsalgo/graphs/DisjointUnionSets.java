@@ -17,28 +17,28 @@ public class DisjointUnionSets {
         }
     }
 
-    public int find(int x){
+    public int findParent(int x){
         if(parent[x] == x){
             return x;
         }
-        return find(parent[x]);
+        return parent[x] = findParent(parent[x]);
     }
 
-    public void union(int x, int y){
-        int xRoot = find(x);
-        int yRoot = find(y);
+    public void union(int u, int v){
+        int uRoot = findParent(u);
+        int vRoot = findParent(v);
 
-        if(xRoot == yRoot){
+        if(uRoot == vRoot){
             return;
         }
 
-        if(rank[xRoot] < rank[yRoot]){
-            parent[xRoot] = yRoot;
-        } else if (rank[yRoot] < rank[xRoot]){
-            parent[yRoot] = xRoot;
+        if(rank[uRoot] < rank[vRoot]){
+            parent[uRoot] = vRoot;
+        } else if (rank[vRoot] < rank[uRoot]){
+            parent[vRoot] = uRoot;
         } else {
-            parent[yRoot] = xRoot;
-            rank[xRoot] = rank[xRoot] + 1;
+            parent[vRoot] = uRoot;
+            rank[uRoot] = rank[uRoot] + 1;
         }
     }
 }
