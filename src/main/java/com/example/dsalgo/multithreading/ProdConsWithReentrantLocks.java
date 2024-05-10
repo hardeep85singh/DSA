@@ -8,7 +8,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 class Worker{
     private List<Integer> list = new ArrayList<>();
-    private final static int UPPER_LIMIT = 5;
+    private final static int UPPER_LIMIT = 1;
     private final static int LOWER_LIMIT = 0;
     Lock lock = new ReentrantLock();
     Condition condition = lock.newCondition();
@@ -23,7 +23,7 @@ class Worker{
                     System.out.println("List is full, waiting for consumer to delete");
                     condition.await();
                 } else {
-                    System.out.println("Adding: " + value);
+                    System.out.println("Adding: " + value + " " + Thread.currentThread().getName());
                     list.add(value);
                     value++;
                     condition.signal();
@@ -46,7 +46,7 @@ class Worker{
                     condition.await();
                 } else {
                     int val = list.remove(list.size()-1);
-                    System.out.println("Deleting: " + val);
+                    System.out.println("Deleting: " + val + " " + Thread.currentThread().getName());
                     value--;
                     condition.signal();
                 }
@@ -85,12 +85,25 @@ public class ProdConsWithReentrantLocks {
             }
         });
 
+        Thread t3 = new Thread(new Runnable(){
+            @Override
+            public void run(){
+                try {
+                    worker.consume();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         t1.start();
         t2.start();
+        t3.start();
 
         try {
             t1.join();
             t2.join();
+            t3.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
