@@ -1,7 +1,6 @@
 package com.example.dsalgo.leetcode.medium;
 
 import java.util.Arrays;
-import java.util.Comparator;
 
 public class M3075MaximizeHappinessOfSelectedChildren {
     public static void main(String[] args) {

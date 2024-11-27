@@ -1,5 +1,6 @@
 package com.example.dsalgo.leetcode.easy;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,10 +9,10 @@ import java.util.Map;
  */
 public class E409LongestPalindrome {
     public static void main (String[] args){
-        String s = "ccc";
+        String s = "aaccccdd";
         System.out.println(longestPalindrome(s));
     }
-    public static int longestPalindrome(String s) {
+    public static int longestPalindrome1(String s) {
         HashMap<Character, Integer> map = new HashMap<>();
         for (int i = 0; i< s.length(); i++){
             map.put(s.charAt(i), map.getOrDefault(s.charAt(i), 0) + 1);
@@ -25,4 +26,21 @@ public class E409LongestPalindrome {
         }
         return count;
     }
+
+    public static int longestPalindrome(String s) {
+        int ans = 0;
+        int[] count = new int[128];
+
+        for (char c : s.toCharArray()) {
+            count[c]++;
+        }
+
+        for (int freq : count) {
+            ans += freq % 2 == 0 ? freq : freq - 1;
+        }
+
+        boolean hasOddCount = Arrays.stream(count).anyMatch(freq -> freq % 2 == 1);
+        return ans + (hasOddCount ? 1 : 0);
+    }
+
 }

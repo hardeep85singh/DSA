@@ -9,9 +9,14 @@ import java.util.List;
  */
 public class M78Subsets {
     public static void main(String[] args) {
-        int[] nums = {1, 2, 3, 4};
+        int[] nums = {1, 2, 3, 3};
 
         for (List<Integer> list : subSets(nums)) {
+            System.out.println(Arrays.toString(list.toArray()));
+        }
+        List<List<Integer>> result = new ArrayList<>();
+        dfs(nums, 0, new ArrayList<>(), result);
+        for (List<Integer> list : result) {
             System.out.println(Arrays.toString(list.toArray()));
         }
     }
@@ -29,5 +34,14 @@ public class M78Subsets {
             }
         }
         return result;
+    }
+
+    public static void dfs(int[] nums, int s, ArrayList<Integer> list, List<List<Integer>> result){
+        result.add(new ArrayList<>(list));
+        for (int i = s; i < nums.length; i++) {
+            list.add(nums[i]);
+            dfs(nums, i + 1, list, result);
+            list.remove(list.size() - 1);
+        }
     }
 }

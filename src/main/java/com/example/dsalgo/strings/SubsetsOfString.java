@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class SubsetsOfString {
     public static void main(String[] args) {
         String str = "abc";
-//        subsets(str, "");
+        subsets(str, "");
         System.out.println(subsetsReturnLocalArrayList(str, ""));
     }
 
