@@ -1,8 +1,5 @@
 package com.example.dsalgo.amazon;
 
-/**
- * @author Hardeep Singh
- */
 public class EncryptedPassword {
     public static void main(String[] args) {
         String password = "yxxy";
